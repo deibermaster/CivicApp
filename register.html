@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro - CivicApp</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="register-container">
+    <img src="logo-monteria.png" alt="Montería" class="logo">
+    <h1>CivicApp</h1>
+
+    <form id="registerForm" action="/register" method="POST">
+        <div class="input-group">
+          <label for="username"><i class="fas fa-user"></i></label>
+          <input type="text" id="username" name="username" placeholder="Usuario" required>
+        </div>
+      
+        <div class="input-group">
+          <label for="email"><i class="fas fa-envelope"></i></label>
+          <input type="email" id="email" name="email" placeholder="Correo electrónico" required>
+        </div>
+      
+        <div class="input-group">
+          <label for="password"><i class="fas fa-lock"></i></label>
+          <input type="password" id="password" name="password" placeholder="Contraseña" required>
+        </div>
+      
+        <button type="submit" class="register-btn">Registrarse</button>
+      <div class="login-link">
+        <span>¿Ya tienes cuenta?</span>
+        <a href="/login" class="login-btn">Inicia sesión aquí</a>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("registerForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const username = document.getElementById("username").value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      const response = await fetch("/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, email, password }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        alert("Registro exitoso");
+        window.location.href = "/login";  // Redirige a la página de login
+      } else {
+        alert(data.message || "Error al registrar el usuario");
+      }
+    });
+  </script>
+</body>
+</html>

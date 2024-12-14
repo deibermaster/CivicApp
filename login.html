@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - CivicApp</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="login-container">
+    <img src="logo-monteria.png" alt="Montería" class="logo">
+    <h1>CivicApp</h1>
+
+    <form id="loginForm" action="/login" method="POST">
+        <div class="input-group">
+          <label for="email"><i class="fas fa-user"></i></label>
+          <input type="text" id="email" name="email" placeholder="Email" required>
+        </div>
+        <div class="input-group">
+          <label for="password"><i class="fas fa-lock"></i></label>
+          <input type="password" id="password" name="password" placeholder="Contraseña" required>
+        </div>
+      <button type="submit" class="login-btn">Iniciar sesión</button>
+      <div class="register-link">
+        <span>¿No tienes cuenta?</span>
+        <a href="/register" class="register-btn">Regístrate aquí</a>
+      </div>
+    </form>
+  </div>
+
+  <script>
+document.getElementById("loginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      if (!email || !password) {
+        alert("Por favor, ingrese todos los campos.");
+        return;
+      }
+
+      try {
+        const response = await fetch("http://localhost:3000/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          // Guarda el token
+          localStorage.setItem("token", data.token);
+          window.location.href = "/index.html"; // Redirige
+        } else {
+          alert(data.message || "Error al iniciar sesión");
+        }
+      } catch (error) {
+        console.error("Error en el login:", error);
+        alert("Ocurrió un error. Intente nuevamente.");
+      }
+    });
+
+  </script>
+</body>
+</html>
+

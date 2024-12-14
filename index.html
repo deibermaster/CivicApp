@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CivicApp - Inicio</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+    
+    header {
+      background-color: #795548;
+      color: white;
+      padding: 15px 0;
+      border-bottom: 5px solid #5d4037;
+    }
+
+    header .logo {
+      width: 120px;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin: 0;
+    }
+
+    main {
+      padding: 20px;
+    }
+
+    #map {
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border: 2px solid #795548;
+    }
+
+    h2 {
+      color: #795548;
+      margin-top: 20px;
+      font-size: 1.6rem;
+    }
+
+    ul.list-group {
+      margin-top: 15px;
+      padding: 0;
+      list-style: none;
+    }
+
+    ul.list-group li {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      margin-bottom: 10px;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    footer {
+      background-color: #795548;
+      color: white;
+      padding: 10px 0;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+
+    .report-button {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
+
+    .btn-reportar {
+      background-color: #795548;
+      color: white;
+      font-size: 1.2rem;
+      border-radius: 25px;
+      padding: 12px 30px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-reportar:hover {
+      background-color: #5d4037;
+    }
+
+    .form-group label {
+      font-weight: bold;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 10px;
+      width: 100%;
+      margin-bottom: 15px;
+    }
+
+    .form-group input[type="file"] {
+      padding: 0;
+    }
+
+    .form-group button {
+      background-color: #795548;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .form-group button:hover {
+      background-color: #5d4037;
+    }
+  </style>
+</head>
+<body>
+    <header class="text-center d-flex justify-content-between align-items-center px-3">
+        <div>
+            <img src="logo.png" alt="CivicApp Logo" class="logo">
+        </div>
+        <h1>CivicApp</h1>
+        <div>
+            <!-- Botón de Login -->
+            <button onclick="window.location.href='/login.html'" class="btn btn-light mx-1">Login</button>
+        
+            <!-- Botón de Register -->
+            <button onclick="window.location.href='/register.html'" class="btn btn-light mx-1">Register</button>
+        </div>
+    </header>
+
+  <main class="container mt-4">
+    <div id="map" style="height: 400px;"></div>
+
+    <!-- Formulario para enviar reportes -->
+    <form id="reportForm" class="mt-4">
+        <div class="form-group">
+          <label for="description">Descripción del reporte</label>
+          <textarea id="description" class="form-control" rows="3" placeholder="Describa el problema"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="photo">Foto del incidente (opcional)</label>
+          <input type="file" id="photo" class="form-control">
+        </div>
+        <div class="form-group">
+          <input type="hidden" id="latitude" name="latitude">
+          <input type="hidden" id="longitude" name="longitude">
+          <button type="submit" class="btn-reportar">Enviar reporte</button>
+        </div>
+      </form>
+      
+
+    <h2 class="mt-4">Reportes recientes</h2>
+    <ul id="reports" class="list-group mt-3">
+      <!-- Ejemplo de reporte -->
+      <li class="list-group-item">
+        <p class="mb-1"><strong>Descripción:</strong> Árbol caído en la vía pública.</p>
+        <p class="mb-1 text-muted"><i class="fas fa-map-marker-alt"></i> Calle 12 con Av. 3</p>
+        <small class="text-muted">Hace 10 minutos</small>
+      </li>
+    </ul>
+  </main>
+
+  <footer class="text-center">
+    <p>&copy; 2024 CivicApp - Montería</p>
+  </footer>
+
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
+
